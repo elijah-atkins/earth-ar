@@ -1,1 +1,1 @@
-Simple AR App made with THREE.js and webxr using 3d assets from nasa
+This code initializes a scene in Three.js, sets up a camera and lights, then renders an ARButton. When the button is clicked, it initializes an AR session and places a 3D Earth and moon in the scene.

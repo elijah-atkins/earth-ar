@@ -51,7 +51,7 @@ export const Earth = async(scale, camera) => {
   
       const moon = await loadGLTF('../../assets/models/space/moon.glb');
       moon.scene.scale.set(0.000216*scale, 0.000216*scale, 0.000216*scale);
-      moon.scene.position.set( 0, 0, -13.92*scale );
+      moon.scene.position.set( 0, 0, -28*scale );
       moon.scene.rotation.set( 0
         , 2.88548194, 0 );
 
