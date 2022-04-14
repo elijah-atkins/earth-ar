@@ -27,7 +27,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let stopped = true;
     let speed = .005;
     let oldSpeed = .005;
+    let isClicking = false;
     let moonDistance = 1;
+    let time = null;
     //save the moon scene starting z position
     const moonStartZ = moon.scene.position.z;
 
@@ -53,32 +55,11 @@ document.addEventListener('DOMContentLoaded', () => {
     //add event listeners to detect a click and drag
     const clickPosition = new THREE.Vector3();
     controller.addEventListener('selectstart', () => {
-      //get position of click
-      const {x,y,z} = controller.position;
-      //save click position as vector3  
-      clickPosition.set(x, y, z);
+      //get the current time
+      time = clock.getElapsedTime();
+      //save the click position to clickPosition
+      controller.matrixWorld.decompose(clickPosition, controller.quaternion, controller.scale);
 
-    });
-    controller.addEventListener('selectend', () => {
-      //get position of click
-      const {x,y,z} = controller.position;
-      const releasePosition = new THREE.Vector3(x, y, z);
-      let distance = (releasePosition.x - clickPosition.x) + (releasePosition.y - clickPosition.y) + (releasePosition.z - clickPosition.z);
-
-      //add distance to moonDistance and clamp to .1-1
-      moonDistance += distance*3;
-      moonDistance = Math.max(moonDistance, .03);
-      moonDistance = Math.min(moonDistance, 1);
-
-      //set the moon's z position to moonStartZ*moonDistance
-      moon.scene.position.z = moonDistance*moonStartZ;
-      console.log(moon.scene.position.z);
-
-
-      
-
-    });
-    controller.addEventListener('select', () => {
       if(!stopped){
         oldSpeed = speed;
         speed = 0;
@@ -94,6 +75,27 @@ document.addEventListener('DOMContentLoaded', () => {
         scene.add(group);
         loaded = true;
       }
+
+    });
+
+    controller.addEventListener('selectend', () => {
+      if(loaded){
+        console.log(clock.getElapsedTime()-time);
+        //if the current time is greater than the time of the click + 1 second
+        if(clock.getElapsedTime() > time + 1){
+          //if moon.scene.position.z is equal to moonStartZ
+          if(moon.scene.position.z == moonStartZ){
+          //set the  moon.scene.position.z to the moonStartZ * .05
+          moon.scene.position.z = moonStartZ * .05;
+          }else{
+            //else set the moon.scene.position.z to moonStartZ
+            moon.scene.position.z = moonStartZ;
+          }
+        }
+
+      }
+        
+    
     });
   }
   
