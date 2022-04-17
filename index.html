@@ -3,9 +3,48 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script type="module" src="./main.js"></script>
   <style>
-    body {margin: 0}
+    body {margin: 0;
+          background-color: #002244;}
+
+    #information {
+
+      display: flex;
+      visibility: visible;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      width: 100vw;
+      font-family: 'Roboto', sans-serif;
+      color: aliceblue;
+
+    }
+    #information a {
+      color: aliceblue;
+      text-decoration: none;
+    }
+    #information a:hover {
+      text-decoration: underline;
+    }
+    #information div {
+      margin-left: 5vw;
+      margin-top: 2vh;
+
+      font-weight: bold;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
+  <div id="information">
+    <div>
+    This is an AR application built using <a href="https://threejs.org/">Three.js</a> and <a href="https://www.w3.org/TR/webxr/">WebXR</a>.
+    </div>
+  <div>
+      If you have a compatable device, you can use the button below to start the experience.
+  </div>
+    
+
+ </div>
 </body>
 </html>
